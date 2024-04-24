@@ -1,0 +1,38 @@
+<div class="container-fluid text-center py-5 ">
+    <div class="container text-light">
+        <h1 style="font-family: Arial, Helvetica, sans-serif;" class="fw-bold display-3">WEATHER FORECAST API</h1>
+        <h3 style="font-family: Arial, Helvetica, sans-serif;">An angular application that gets the weather forecast by location of the users device through API requests</h3>
+        <button class="btn btn-primary" (click)="farenheitSwitch()">Switch units to @if(farenheit == false){<span>°F</span>}@else{<span>°C</span>}</button>
+        <hr class="border border-3 text-white">
+    </div>
+    <div class="row align-content-center justify-content-center">
+        <div class="col-12 col-sm-8 col-lg-6 col-xxl-4 align-content-center justify-content-center">
+            <h1 class="display-1 fw-bold text-light" style="font-family: 'Times New Roman', Times, serif;">{{locationArr.address.town}}</h1>
+            <div class="my-3 card rounded-4 py-3 px-5" [style]="'background-image: url(' + getWeatherconditionByCodeBg(forecastArr.daily.weather_code[0]) + '); background-repeat: no-repeat; background-size: cover;'">
+                <div>
+                    <h2 class="bg-primary rounded-5 mx-5 text-light p-2">{{forecastArr.daily.time[0] | date: 'EE'}}</h2>
+                    <img [src]='getWeatherconditionByCode(forecastArr.daily.weather_code[0])' width="200px">
+                    <h1 class="bg-primary rounded-5 mx-5 text-light p-2">{{forecastArr.current.temperature_2m}} {{forecastArr.current_units.temperature_2m}}</h1>
+                    <h3 class="bg-primary rounded-5 mx-5 text-light p-2">Max: {{forecastArr.daily.temperature_2m_max[0]}} {{forecastArr.daily_units.temperature_2m_max}}</h3>
+                    <h3 class="bg-primary rounded-5 mx-5 text-light p-2">Min: {{forecastArr.daily.temperature_2m_min[0]}} {{forecastArr.daily_units.temperature_2m_max}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @for (days of forecastArr.daily.weather_code; track days; let index = $index){
+        @if(index != 0){
+        <div class="col-12 col-sm-6 col-lg-4 col-xxl-2 p-2">
+            <div class="card rounded-4 py-3" [style]="'background-image: url(' + getWeatherconditionByCodeBg(forecastArr.daily.weather_code[index]) + '); background-repeat: no-repeat; background-size: cover;'">
+                <div>
+                    <h2 class="bg-primary rounded-5 mx-5 text-light p-2">{{forecastArr.daily.time[index] | date: 'EE'}}</h2>
+                    <img [src]='getWeatherconditionByCode(forecastArr.daily.weather_code[index])' width="150px">
+                    <h3 class="bg-primary rounded-5 mx-5 text-light p-2">Max: {{forecastArr.daily.temperature_2m_max[index]}} {{forecastArr.daily_units.temperature_2m_max}}</h3>
+                    <h3 class="bg-primary rounded-5 mx-5 text-light p-2">Min: {{forecastArr.daily.temperature_2m_min[index]}} {{forecastArr.daily_units.temperature_2m_max}}</h3>
+                </div>
+            </div>
+        </div>
+        }
+        }
+    </div>
+</div>
